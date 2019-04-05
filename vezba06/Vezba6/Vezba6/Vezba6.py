@@ -105,26 +105,26 @@ def print_huffman_tree(h_tree):
         print_huffman_tree(h_tree.right)
         print_huffman_tree(h_tree.left)
 
-def GetEnvValue(root, symbol):
+def GetEncValue(root, symbol):
     code = ""
-    while root.left != None:
-        if root.right.value == symbol:
+    while root != None:
+        if root.right != None and root.right.value == symbol:
             code += "1"
             break
-        if root.left.value != None:
-            if root.left.value != symbol:
-                code = None
-            break
+        elif root.left != None:
+            code += "0"
+            if root.left.value == symbol:
+                break
         root = root.left
-        code += "0"
     return code         
 
 def zad3():
     l1 = ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'd', 'g', 'e', 'g', 'g']
     h_elements = make_histogram_list(l1)
     huffman_tree = form_huffman_tree(h_elements)
+    print_huffman_tree(huffman_tree)
     for element in h_elements:
-        print("Code for " + str(element.value) + " : " + GetEnvValue(huffman_tree, element.value))
+        print("Code for " + str(element.value) + " : " + GetEncValue(huffman_tree, element.value))
     
 if __name__ == '__main__':
     #zad1()
